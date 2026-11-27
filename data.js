@@ -1,87 +1,86 @@
-// The fictional news day this edition sums up. Every string here is illustrative
-// content for the make.fun "news in one image" bounty; it is not reporting.
+// Friday 27 November 2026, read at 08:14 UTC. Every headline is quoted as its
+// outlet published it, and `source` is that outlet. A time starting with "~" is one
+// the outlet printed as a relative stamp or without a zone, converted to UTC; a null
+// time is a story the outlet dated and printed no clock time for.
 export const edition = {
   name: "The World in One Day",
-  number: 331,
   weekday: "Friday",
   date: "27 November 2026",
-  note: "Illustrative edition · synthetic wire digest, not reporting",
+  compiled: "08:14",
+  note: "Headlines as published by the outlets named",
 };
 
-// Eight stories get room on the page. `status` says what kind of evidence the
-// line rests on, which is shown next to every headline.
 export const stories = [
   {
-    region: "Middle East",
-    field: "Security",
-    time: "03:40",
-    status: "Reported",
+    region: "Europe",
+    field: "Diplomacy",
+    time: "~07:21",
+    source: "Reuters",
     lead: true,
-    headline: "Two Italians killed in a drone strike on a Kuwait oil terminal",
-    deck: "Loadings stopped for four hours at the Shuaiba terminal and exports resumed before dawn, a person briefed on the closure said. No group has said it fired the drone.",
+    headline: "Trump says he asked Putin to 'pull back' military aggression throughout Europe",
+    deck: "President Donald Trump said he told Vladimir Putin last week he would like to see Russia pull back on military aggression against territories throughout Europe, in the hope it could lead to a quick settlement of the war in Ukraine.",
   },
   {
     region: "Americas",
-    field: "Retail",
-    time: "21:00",
-    status: "Company data",
-    headline: "Black Friday online sales reach $12.9bn in a single day",
-    deck: "Trackers counted 126 million buyers and an average discount of 28%.",
+    field: "Weather",
+    time: "~07:14",
+    source: "France 24",
+    headline: "Almost a million Americans left without power on Thanksgiving as storm sweeps East Coast",
+    deck: "A powerful storm knocked out power to nearly a million customers as gusts of up to 112km/h toppled trees and lines, and New York postponed the Macy's parade.",
   },
   {
     region: "Middle East",
-    field: "Diplomacy",
-    time: "18:20",
-    status: "Official",
-    headline: "Hamas weighs its reply after 10 killed in Gaza strikes",
-    deck: "Mediators in Doha said a 72-hour pause was back on the table.",
-  },
-  {
-    region: "Europe",
     field: "Politics",
-    time: "15:30",
-    status: "Official",
-    headline: "Berlin's coalition survives its budget by four seats",
-    deck: "The transport levy stays; the climate fund is trimmed by €2bn.",
-  },
-  {
-    region: "Asia",
-    field: "Industry",
-    time: "00:50",
-    status: "Official",
-    headline: "Japan's factory output falls a third month as exports cool",
+    time: "~06:46",
+    source: "France 24",
+    headline: "Israel's Eisenkot agrees to a coalition deal with the left-wing Democrats",
+    deck: "The centrist party of former military chief Gadi Eisenkot and Yair Golan's Democrats struck the deal on Thursday, after October's election left no bloc with a majority.",
   },
   {
     region: "Africa",
-    field: "Energy",
-    time: "00:05",
-    status: "Official",
-    headline: "Kenya ends its fuel subsidy, and pump prices rise 12%",
+    field: "Security",
+    time: null,
+    source: "Al Jazeera",
+    headline: "At least 13 Niger soldiers killed in an armed attack at Sanam",
+    deck: "Niger's defence ministry said 13 members of the National Guard were killed and 20 wounded at their compound in the west of the country, near the Mali border. No group has said it fired.",
+  },
+  {
+    region: "Asia",
+    field: "Economy",
+    time: "~07:22",
+    source: "Reuters",
+    headline: "China's industrial profit growth fastest in five months",
+  },
+  {
+    region: "Middle East",
+    field: "Security",
+    time: "~06:00",
+    source: "BBC",
+    headline: "Inside Saudi Arabia, Houthi attacks test the kingdom's image of security",
+  },
+  {
+    region: "Americas",
+    field: "Politics",
+    time: "~06:00",
+    source: "BBC",
+    headline: "Venezuela to scrap the law that bars opposition from public office",
   },
   {
     region: "Oceania",
     field: "Politics",
-    time: "02:00",
-    status: "Official",
-    headline: "Special votes add 400,000 ballots to New Zealand's count",
-  },
-  {
-    region: "Americas",
-    field: "Politics",
-    time: "19:45",
-    status: "Official",
-    headline: "Argentina's Senate passes a trimmed spending package",
+    time: "~03:00",
+    source: "DW",
+    headline: "New Zealand's election ends in a hung parliament",
   },
 ];
 
-// Eight shorter lines, one per row, below the cards.
 export const briefs = [
-  { region: "Africa", field: "Diplomacy", time: "08:05", status: "Official", headline: "Nile talks resume in Cairo" },
-  { region: "Global", field: "Climate", time: "06:10", status: "Official", headline: "Loss-and-damage timetable agreed at dawn" },
-  { region: "Europe", field: "Tech", time: "09:20", status: "Official", headline: "EU opens file on model-training data" },
-  { region: "Americas", field: "Economy", time: "10:40", status: "Official", headline: "Chile's copper output rises" },
-  { region: "Middle East", field: "Energy", time: "11:15", status: "Reported", headline: "Tanker clears Hormuz after six days" },
-  { region: "Asia", field: "Weather", time: "04:15", status: "Official", headline: "Typhoon warning lifted in the Philippines" },
-  { region: "Europe", field: "Transport", time: "07:30", status: "Reported", headline: "France's rail strike ends after 52 hours" },
-  { region: "Global", field: "Sport", time: "17:00", status: "Official", headline: "World Cup draw: holders meet two debutants" },
+  { region: "Africa", field: "Justice", time: "~00:39", source: "PUNCH", headline: "Lagos court orders pastor Jimmy Odukoya's arrest over contempt" },
+  { region: "Africa", field: "Politics", time: "~07:13", source: "France 24", headline: "In Central African Republic, Wagner muscles in on daily life" },
+  { region: "Asia", field: "Society", time: "~04:54", source: "Reuters", headline: "The search for Vietnam's stolen pets at wet markets" },
+  { region: "Asia", field: "Technology", time: "~07:08", source: "Reuters", headline: "India's election body fixes a website flaw that exposed voter data" },
+  { region: "Europe", field: "Energy", time: "~07:00", source: "Reuters", headline: "US pushed Venezuela and Iraq to consider leaving OPEC" },
+  { region: "Americas", field: "Retail", time: "~07:00", source: "Reuters", headline: "Cautious consumers gear up for Black Friday as inflation bites" },
+  { region: "Asia", field: "Politics", time: "07:20", source: "AP", headline: "Meet the mayoral candidate in Taiwan who China has sanctioned" },
+  { region: "Asia", field: "Culture", time: null, source: "Al Jazeera", headline: "Indians embrace Pakistani dramas, defying a ban" },
 ];

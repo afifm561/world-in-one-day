@@ -24,9 +24,10 @@ const lead = all[0];
 const secondaries = all.slice(1, 4);
 const cards = all.slice(4, 8);
 const shortLines = all.slice(8);
+const timed = all.filter((s) => s.time).length;
 
 const minutes = (s) => {
-  const [h, m] = s.time.split(":").map(Number);
+  const [h, m] = s.time.replace("~", "").split(":").map(Number);
   return h * 60 + m;
 };
 
@@ -141,7 +142,7 @@ function drawClock(cx, cy, r) {
     ctx.fillText(String(h).padStart(2, "0"), cx + Math.cos(a) * (r - 29), cy + Math.sin(a) * (r - 29));
   }
 
-  const byTime = [...all].sort((a, b) => minutes(a) - minutes(b));
+  const byTime = all.filter((s) => s.time).sort((a, b) => minutes(a) - minutes(b));
   const placed = [];
   const clear = (x, y) => placed.every((p) => (p.x - x) ** 2 + (p.y - y) ** 2 > 20 ** 2);
 
@@ -178,22 +179,23 @@ function drawClock(cx, cy, r) {
 // ---------- the page ----------
 
 function storyBlock(story, x, width, y0) {
-  spaced(`${pinLabel(story.id)} · ${story.region} · ${story.field} · ${story.time} UTC`.toUpperCase(), x, y0, 9.5, 700, RED, 1.4);
+  const stamp = story.time ? `${story.time} UTC` : "no time printed";
+  spaced(`${pinLabel(story.id)} · ${story.region} · ${story.field} · ${stamp}`.toUpperCase(), x, y0, 9.5, 700, RED, 1.4);
   drawLines(fit(story.headline, serif(18.5, 700), width, 2), x, y0 + 26, serif(18.5, 700), INK, 1.24);
-  drawLines(fit(`${story.status} · ${story.region}`, sans(10, 500), width, 1), x, y0 + 74, sans(10, 500), MUTED, 1.2);
+  drawLines(fit(`${story.source} · ${story.region}`, sans(10, 500), width, 1), x, y0 + 74, sans(10, 500), MUTED, 1.2);
 }
 
 function card(story, x, width, y0) {
   ctx.fillStyle = RED;
   ctx.fillRect(x, y0 - 12, 26, 2);
   spaced(pinLabel(story.id), x, y0 + 8, 11, 700, RED, 1.2);
-  spaced(story.time, x + width, y0 + 8, 9, 600, MUTED, 1.2, "right");
+  spaced(story.time ?? "no time", x + width, y0 + 8, 9, 600, MUTED, 1.2, "right");
   drawLines(fit(story.headline, serif(15.5, 700), width, 3), x, y0 + 34, serif(15.5, 700), INK, 1.18);
-  drawLines(fit(`${story.region} · ${story.status}`, sans(9, 500), width, 1), x, y0 + 92, sans(9, 500), MUTED, 1.2);
+  drawLines(fit(`${story.source} · ${story.region}`, sans(9, 500), width, 1), x, y0 + 92, sans(9, 500), MUTED, 1.2);
 }
 
 function briefLine(story, x, width, baseline) {
-  const timeW = 44;
+  const timeW = 58;
   const textW = width - timeW - 10;
   const label = fit(`${story.region} · ${story.headline}`, sans(10.5, 400), textW, 1)[0];
   ctx.fillStyle = INK;
@@ -202,7 +204,7 @@ function briefLine(story, x, width, baseline) {
   ctx.fillStyle = MUTED;
   ctx.textAlign = "right";
   ctx.font = sans(9.5, 500);
-  ctx.fillText(story.time, x + width, baseline);
+  ctx.fillText(story.time ?? "no time", x + width, baseline);
   ctx.textAlign = "left";
 }
 
@@ -217,7 +219,7 @@ function draw() {
 
   // strip
   spaced(edition.note.toUpperCase(), PAD, 42, 8.5, 500, MUTED, 1.4);
-  spaced(`No. ${edition.number}`, W - PAD, 42, 8.5, 500, MUTED, 1.4, "right");
+  spaced(`Compiled ${edition.compiled} UTC`, W - PAD, 42, 8.5, 500, MUTED, 1.4, "right");
   rule(56, INK, 2);
 
   // masthead
@@ -237,7 +239,7 @@ function draw() {
   ctx.font = sans(11.5, 400);
   ctx.fillStyle = MUTED;
   ctx.fillText(
-    `${all.length} stories · ${regions.length} regions · ${fields.length} fields · every time UTC`,
+    `${all.length} stories · ${regions.length} regions · ${fields.length} fields · times in UTC`,
     PAD,
     216,
   );
@@ -248,7 +250,7 @@ function draw() {
 
   // lead
   spaced(
-    `${pinLabel(lead.id)} · ${lead.region} · ${lead.field} · ${lead.time} UTC · ${lead.status}`.toUpperCase(),
+    `${pinLabel(lead.id)} · ${lead.region} · ${lead.field} · ${lead.time} UTC · ${lead.source}`.toUpperCase(),
     PAD,
     262,
     10,
@@ -270,7 +272,7 @@ function draw() {
   ctx.font = sans(9.5, 500);
   ctx.fillStyle = MUTED;
   ctx.textAlign = "center";
-  ctx.fillText(`${all.length} stories, each on the hour it broke · UTC`, 785, 684);
+  ctx.fillText(`${timed} of ${all.length} placed by the hour they broke · UTC`, 785, 684);
   ctx.textAlign = "left";
   rule(710, RULE, 1);
 
@@ -294,9 +296,9 @@ function draw() {
   ctx.font = sans(8.5, 400);
   ctx.fillStyle = MUTED;
   ctx.textAlign = "left";
-  ctx.fillText(`Edition ${edition.number} · ${edition.date} · all times UTC`, PAD, 986);
+  ctx.fillText(`Compiled ${edition.date}, ${edition.compiled} UTC · ${all.length} headlines as their outlets printed them`, PAD, 986);
   ctx.textAlign = "right";
-  ctx.fillText("A synthetic digest drawn for a design exercise. Not reporting.", W - PAD, 986);
+  ctx.fillText("Times in UTC; ~ marks an outlet's relative or unzoned stamp.", W - PAD, 986);
   ctx.textAlign = "left";
 }
 
