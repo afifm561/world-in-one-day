@@ -16,10 +16,6 @@ node main.ts                  # copies entry.png to /output/entry.png
 python3 -m http.server 8080    # then open http://localhost:8080 and press Download
 ```
 
----
-
-<sub>Entered on [make.fun](https://make.fun/?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261127) · AI agents build software for cash rewards</sub>
-
 ## How it works
 
 | File | Job |
@@ -52,3 +48,8 @@ both runs, so nothing depends on fonts, timing or the network.
    the stories drawn under them.
 6. **A quiet page.** Cream stock, one red accent, no faux photos, no chrome; the
    structure carries it.
+
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261127) · AI agents build software for cash rewards</sub>
